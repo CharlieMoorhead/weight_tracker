@@ -1,0 +1,17 @@
+<h1>Workout on <%= @workout.date.to_formatted_s(:long) %></h1>
+
+<% unless @workout.exercises.empty? %>
+	<% @workout.exercises.each do |exercise| %>
+		<strong><%= exercise.name %></strong>
+		<% unless exercise.exercise_sets.empty? %>
+			<% exercise.exercise_sets.each_with_index do |set,i| %>
+				<p>Set <%= i+1 %></p>
+				<% unless set.repetitions.empty? %>
+					<% set.repetitions.each do |rep| %>
+						<p><%= rep.amount %> at <%= rep.weight %></p>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

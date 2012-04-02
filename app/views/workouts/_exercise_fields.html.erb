@@ -1,0 +1,11 @@
+<p>
+	<%= f.label :name %><br />
+	<%= f.text_field :name %>
+</p>
+<ul>
+<%= f.fields_for :exercise_sets do |builder| %>
+	<li><%= render "set_fields", :f => builder %></li>
+<%end %>
+</ul>
+
+

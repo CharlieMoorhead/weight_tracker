@@ -11,28 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326032842) do
+ActiveRecord::Schema.define(:version => 20120402032320) do
 
   create_table "exercise_sets", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "exercise_id"
+    t.integer  "workout_id"
+    t.decimal  "reps"
+    t.decimal  "weight"
   end
 
   create_table "exercises", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "workout_id"
   end
 
-  create_table "repetitions", :force => true do |t|
-    t.integer  "weight"
-    t.integer  "amount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "set_id"
-  end
+  add_index "exercises", ["name"], :name => "index_exercises_on_name", :unique => true
 
   create_table "workouts", :force => true do |t|
     t.date     "date"

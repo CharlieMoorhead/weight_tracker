@@ -1,9 +1,14 @@
 class Exercise < ActiveRecord::Base
+	before_validation :downcase_name
+	attr_accessible :name
 
-	belongs_to :workout
-
-	has_many :exercise_sets, :foreign_key => 'exercise_id', :dependent => :destroy
+	has_many :exercise_sets, :dependent => :destroy
 
 	validates :name, :presence => true, :length => { :maximum => 50 }
 
+	private
+
+		def downcase_name
+			self.name = name.downcase
+		end
 end

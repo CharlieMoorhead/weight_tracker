@@ -1,9 +1,6 @@
-Factory.define :repetition do |rep|
-	rep.weight 100
-	rep.amount 5
-end
-
 Factory.define :exercise_set do |set|
+	set.reps	5
+	set.weight 	150
 end
 
 Factory.define :exercise do |exercise|

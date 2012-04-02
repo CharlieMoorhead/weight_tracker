@@ -1,0 +1,17 @@
+<%= form_for @workout do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<p>
+		<%= f.label :bodyweight %><br />
+		<%= f.text_field :bodyweight %><br />
+		<%= f.label :note %><br />
+		<%= f.text_field :note %><br />
+		<%= f.label :date %><br />
+		<%= date_select :workout, :date %>
+	</p>
+	<ul>
+		<%= f.fields_for :exercises do |builder| %>
+			<li><%= render "exercise_fields", :f => builder %></li>
+		<% end %>
+	</ul>
+	<p><%= f.submit "Submit" %></p>
+<% end %>
