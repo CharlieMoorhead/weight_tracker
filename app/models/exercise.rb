@@ -1,14 +1,16 @@
 class Exercise < ActiveRecord::Base
-	before_validation :downcase_name
-	attr_accessible :name
+	before_validation :format_name
+	attr_accessible :name, :exercise_sets_attributes
 
+	belongs_to :workout
 	has_many :exercise_sets, :dependent => :destroy
+	accepts_nested_attributes_for :exercise_sets
 
 	validates :name, :presence => true, :length => { :maximum => 50 }
 
 	private
 
-		def downcase_name
-			self.name = name.downcase
+		def format_name
+			self.name = name.downcase.capitalize
 		end
 end

@@ -9,9 +9,7 @@
 		<%= date_select :workout, :date %>
 	</p>
 	<ul>
-		<%= f.fields_for :exercises do |builder| %>
-			<li><%= render "exercise_fields", :f => builder %></li>
-		<% end %>
+		<li class="fields"><%= link_to_add_fields "Add Exercise", f, :exercises %></li>
 	</ul>
 	<p><%= f.submit "Submit" %></p>
 <% end %>

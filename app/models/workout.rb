@@ -1,8 +1,8 @@
 class Workout < ActiveRecord::Base
-	attr_accessible :date, :bodyweight, :note, :exercise_sets_attributes
+	attr_accessible :date, :bodyweight, :note, :exercises_attributes
 
-	has_many :exercise_sets, :dependent => :destroy
-	accepts_nested_attributes_for :exercise_sets
+	has_many :exercises, :dependent => :destroy
+	accepts_nested_attributes_for :exercises
 
 	validates :date, :presence => true
 	validates :bodyweight, :presence => true, :numericality => { :greater_than => 0 }

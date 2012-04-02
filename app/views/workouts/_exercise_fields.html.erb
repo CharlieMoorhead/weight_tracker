@@ -1,11 +1,10 @@
+<div class="fields">
 <p>
-	<%= f.label :name %><br />
+	<%= f.label :name %>
+	<%= link_to_remove_fields "remove", f %><br />
 	<%= f.text_field :name %>
 </p>
 <ul>
-<%= f.fields_for :exercise_sets do |builder| %>
-	<li><%= render "set_fields", :f => builder %></li>
-<%end %>
+	<li><%= link_to_add_fields "Add Set", f, :exercise_sets %></li>
 </ul>
-
-
+</div>

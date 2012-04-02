@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(:version => 20120402032320) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "exercise_id"
-    t.integer  "workout_id"
     t.decimal  "reps"
     t.decimal  "weight"
   end
@@ -26,9 +25,10 @@ ActiveRecord::Schema.define(:version => 20120402032320) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "workout_id"
   end
 
-  add_index "exercises", ["name"], :name => "index_exercises_on_name", :unique => true
+  add_index "exercises", ["name"], :name => "index_exercises_on_name"
 
   create_table "workouts", :force => true do |t|
     t.date     "date"
