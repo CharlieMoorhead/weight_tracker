@@ -8,7 +8,7 @@ Factory.define :exercise do |exercise|
 end
 
 Factory.define :workout do |workout|
-	workout.date		 Date.today
-	workout.bodyweight	150.5
-	workout.note		"First workout"
+	workout.date					 Date.today
+	workout.bodyweight				150.5
+	workout.note					"First workout"
 end

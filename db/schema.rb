@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(:version => 20120402032320) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "exercise_id"
-    t.decimal  "reps"
-    t.decimal  "weight"
+    t.integer  "reps"
+    t.integer  "weight"
   end
 
   create_table "exercises", :force => true do |t|

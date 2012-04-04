@@ -1,0 +1,34 @@
+<h1>All Workouts</h1>
+
+<% unless @workouts.empty? %>
+	<table border=1>
+		<tr>
+			<td></td>
+			<% @exercises.each do |exercise| %>
+				<td><%= exercise %></td>
+			<% end %>
+			<td>Bodyweight</td>
+			<td>Notes</td>
+		</tr>
+		<% @workouts.each do |workout| %>
+			<tr>
+				<td><%= link_to workout.date, edit_workout_url(workout) %></td>
+				<% @exercises.each do |exercise| %>
+					<td>
+						<% if e = workout.find_exercise_by_name(exercise) %>
+							<% e.exercise_sets.each do |set| %>
+								<%= set.reps %>x<%= set.weight %><br />
+							<% end %>
+						<% end %>
+					</td>
+				<% end %>
+				<td><%= workout.bodyweight %></td>
+				<td><%= workout.note %></td>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+	No workouts. Get lifting, brah
+<% end %>
+
+<p><%= link_to "Add workout", new_workout_url %></p>

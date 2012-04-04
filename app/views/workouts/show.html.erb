@@ -8,3 +8,6 @@
 		<% end %>
 	<% end %>
 <% end %>
+
+<p><%= link_to "edit", edit_workout_path(@workout) %></p>
+<p><%= link_to "delete", @workout, :method => :delete, :confirm => "You sure?", :title => "Delete Workout" %></p>

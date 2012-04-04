@@ -4,7 +4,7 @@ class Exercise < ActiveRecord::Base
 
 	belongs_to :workout
 	has_many :exercise_sets, :dependent => :destroy
-	accepts_nested_attributes_for :exercise_sets
+	accepts_nested_attributes_for :exercise_sets, :allow_destroy => true
 
 	validates :name, :presence => true, :length => { :maximum => 50 }
 

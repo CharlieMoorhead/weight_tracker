@@ -1,7 +1,7 @@
 class AddRepsAndWeightToExerciseSet < ActiveRecord::Migration
   def self.up
-    add_column :exercise_sets, :reps, :decimal
-    add_column :exercise_sets, :weight, :decimal
+    add_column :exercise_sets, :reps, :integer
+    add_column :exercise_sets, :weight, :integer
   end
 
   def self.down

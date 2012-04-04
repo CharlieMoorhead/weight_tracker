@@ -1,7 +1,5 @@
 WeightTracker::Application.routes.draw do
-  get "workouts/new"
+	resources :workouts, :except => [:show]
 
-  get "workouts/show"
-
-	resources :workouts
+	root :to => 'workouts#index'
 end
