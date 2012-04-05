@@ -1,23 +1,30 @@
 <h1>All Workouts</h1>
 
 <% unless @workouts.empty? %>
-	<table border=1>
+	<div class="workouts">
+	<table>
 		<tr>
-			<td></td>
+			<th></th>
 			<% @exercises.each do |exercise| %>
-				<td><%= exercise %></td>
+				<th><%= exercise %></th>
 			<% end %>
-			<td>Bodyweight</td>
-			<td>Notes</td>
+			<th>Bodyweight</th>
+			<th>Notes</th>
 		</tr>
 		<% @workouts.each do |workout| %>
-			<tr>
+			<tr class="<%= cycle("even", "odd") %>">
 				<td><%= link_to workout.date, edit_workout_url(workout) %></td>
 				<% @exercises.each do |exercise| %>
 					<td>
 						<% if e = workout.find_exercise_by_name(exercise) %>
 							<% e.exercise_sets.each do |set| %>
+								<% if set.failure %>
+									<div class="failure">
+								<% end %>
 								<%= set.reps %>x<%= set.weight %><br />
+								<% if set.failure %>
+									</div>
+								<% end %>
 							<% end %>
 						<% end %>
 					</td>
@@ -27,6 +34,7 @@
 			</tr>
 		<% end %>
 	</table>
+	</div>
 <% else %>
 	No workouts. Get lifting, brah
 <% end %>

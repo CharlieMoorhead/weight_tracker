@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402032320) do
+ActiveRecord::Schema.define(:version => 20120404213921) do
 
   create_table "exercise_sets", :force => true do |t|
     t.datetime "created_at"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120402032320) do
     t.integer  "exercise_id"
     t.integer  "reps"
     t.integer  "weight"
+    t.boolean  "failure",     :default => false
   end
 
   create_table "exercises", :force => true do |t|

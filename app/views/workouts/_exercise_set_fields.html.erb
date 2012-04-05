@@ -1,7 +1,9 @@
 <li class="fields">
-	<%= f.label :reps %>
-	<%= f.text_field :reps %><br />
-	<%= f.label :weight %>
+	<%= f.label :reps, :class => "set_field" %>
+	<%= f.text_field :reps %>
+	<%= f.check_box :failure %>
+	<%= f.label :failure, "failed set" %><br />
+	<%= f.label :weight, :class => "set_field" %>
 	<%= f.text_field :weight %>
 	<%= link_to_remove_fields "remove", f %>
 </li>

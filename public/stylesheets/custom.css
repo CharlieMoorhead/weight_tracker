@@ -1,0 +1,84 @@
+nav {
+	float: right;
+}
+
+nav ul {
+	list-style-type: none;
+}
+
+a {
+	color: #015965;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+body {
+	font-family: "helvetica", sans-serif, Arial;
+	background-color: #5FC0CE;
+}
+
+.container {
+	padding-bottom: 10px;
+	padding-left: 80px;
+	padding-right: 80px;
+	padding-top: 10px;
+	margin: 80px;
+	background-color: white;
+	border: solid;
+}
+
+.workouts th {
+	background-color: #015965;
+	color: white;
+	border-color: black;
+	border-collapse: collapse;
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+}
+
+.workouts table, tr, td {
+	border-collapse: collapse;
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+}
+
+.workouts tr.even {
+	background-color: white;
+}
+
+.workouts tr.odd {
+	background-color: #5FC0CE;
+}
+
+.failure {
+	font-style: italic;
+	color: #A65000;
+}
+
+.submit {
+	background-color: #015965;
+	color: white;
+	font-size: 100%;
+}
+
+.date_selector select {
+	background: transparent;
+	background-color: #015965;
+	color: white;
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+
+ul.forms {
+	list-style-type: none;
+}
+
+.set_field {
+	float: left;
+	width: 4em;
+}

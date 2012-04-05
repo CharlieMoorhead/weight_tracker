@@ -1,13 +1,16 @@
 <%= form_for @workout do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
-	<p>
-		<%= f.label :date %><br />
-		<%= date_select :workout, :date %><br />
-		<%= f.label :bodyweight %><br />
-		<%= f.text_field :bodyweight %>
-	</p>
-	<ul>
-		<% f.fields_for :exercises do |builder| %>
+	<%= f.label :date %>
+	<div class="date_selector">
+		<%= date_select :workout, :date,
+						:start_year => Date.today.year - 10,
+						:end_year => Date.today.year + 1,
+						:order => [:month,:day,:year] %>
+	</div>
+	<%= f.label :bodyweight %><br />
+	<%= f.text_field :bodyweight %>
+	<ul class="forms">
+		<%= f.fields_for :exercises do |builder| %>
 			<%= render "exercise_fields", :f => builder %>
 		<% end %>
 		<li><%= link_to_add_fields "Add Exercise", f, :exercises %></li>
@@ -16,5 +19,8 @@
 		<%= f.label :note, "Workout notes" %><br />
 		<%= f.text_area :note, :rows => 3 %><br />
 	</p>
-	<p><%= f.submit "Submit" %></p>
+	<p>
+		<%= f.submit "Submit", :class => "submit" %>
+		<%= link_to "cancel", workouts_url %>
+	</p>
 <% end %>

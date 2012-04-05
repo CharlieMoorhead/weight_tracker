@@ -12,3 +12,11 @@ Factory.define :workout do |workout|
 	workout.bodyweight				150.5
 	workout.note					"First workout"
 end
+
+Factory.sequence :date do |n|
+	Date.today + n
+end
+
+Factory.sequence :bodyweight do |n|
+	100 + n
+end

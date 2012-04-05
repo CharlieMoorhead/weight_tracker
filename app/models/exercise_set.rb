@@ -1,5 +1,5 @@
 class ExerciseSet < ActiveRecord::Base
-	attr_accessible :reps, :weight
+	attr_accessible :reps, :weight, :failure
 
 	belongs_to :exercise
 

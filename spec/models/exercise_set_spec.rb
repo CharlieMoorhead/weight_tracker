@@ -33,6 +33,11 @@ describe ExerciseSet do
 			set.should_not be_valid
 		end
 
+		it "should have a default 'false' value for failure" do
+			set = @exercise.exercise_sets.new(@attr)
+			set.failure.should == false
+		end
+
 		it "should have the right exercise associated" do
 			set = @exercise.exercise_sets.new(@attr)
 			set.exercise_id.should == @exercise.id
