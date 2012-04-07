@@ -1,0 +1,30 @@
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "workouts_chart"
+        },
+      title: {
+        text: "<%= @graph_title.capitalize %>"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+        text: "Weight"
+        }
+      },
+      series: [{
+        data: <%= @stats.to_s.gsub('"','') %>,
+        name: "<%= @graph_title.capitalize %>"
+      }],
+      legend: {
+        enabled: false
+      }
+    });
+  });
+</script>
+
+<div id="workouts_chart" style="width:560px; height:300px;"></div>
+<p><%= link_to "back", workouts_url %></p>

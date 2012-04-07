@@ -8,9 +8,21 @@ class Exercise < ActiveRecord::Base
 
 	validates :name, :presence => true, :length => { :maximum => 50 }
 
+  def average_work_weight
+    sum_weights / exercise_sets.count
+  end
+
 	private
 
 		def format_name
 			self.name = name.downcase.capitalize
 		end
+
+		def sum_weights
+		  sum = 0
+		  exercise_sets.each do |set|
+		    sum += set.weight
+      end
+      return sum
+    end
 end

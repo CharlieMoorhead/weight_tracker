@@ -17,11 +17,6 @@ describe Workout do
 			workout.should_not be_valid
 		end
 
-		it "should require a bodyweight" do
-			workout = Workout.new(@attr.merge(:bodyweight => nil))
-			workout.should_not be_valid
-		end
-
 		it "should reject a non-positive bodyweight" do
 			workout = Workout.new(@attr.merge(:bodyweight => 0))
 			workout.should_not be_valid

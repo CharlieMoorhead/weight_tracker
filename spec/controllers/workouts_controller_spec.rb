@@ -160,4 +160,26 @@ describe WorkoutsController do
 			end
 		end
 	end
+
+	describe "GET 'graph'" do
+
+    it "should redirect when a stat isn't provided" do
+	    get :graph, :workouts => "workouts"
+	    response.should redirect_to(workouts_url)
+    end
+
+    it "should redirect when a stat doesn't exist" do
+      get :graph, :workouts => "workouts", :stat => "Empty"
+      response.should redirect_to(workouts_url)
+    end
+
+    it "should be a success when a good stat happens" do
+      workout = Factory(:workout)
+      exercise = workout.exercises.create!(:name => "Squat")
+      exercise.exercise_sets.create!(:weight => 5, :reps => 5)
+
+      get :graph, :workouts => "workouts", :stat => "Squat"
+      response.should be_success
+    end
+  end
 end

@@ -6,9 +6,9 @@
 		<tr>
 			<th></th>
 			<% @exercises.each do |exercise| %>
-				<th><%= exercise %></th>
+        <th><%= link_to "#{exercise}", "/workouts/graph?stat=#{exercise}" %></th>
 			<% end %>
-			<th>Bodyweight</th>
+      <th><%= link_to "Bodyweight", "/workouts/graph?stat=bodyweight" %></th>
 			<th>Notes</th>
 		</tr>
 		<% @workouts.each do |workout| %>

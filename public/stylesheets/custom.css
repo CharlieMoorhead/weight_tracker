@@ -42,6 +42,10 @@ body {
 	padding: 5px;
 }
 
+.workouts th a {
+	color: white;
+}
+
 .workouts table, tr, td {
 	border-collapse: collapse;
 	border-style: solid;

@@ -5,7 +5,7 @@ class Workout < ActiveRecord::Base
 	accepts_nested_attributes_for :exercises, :allow_destroy => true
 
 	validates :date, :presence => true
-	validates :bodyweight, :presence => true, :numericality => { :greater_than => 0 }
+	validates :bodyweight, :numericality => { :greater_than => 0, :allow_blank => true }
 
 	def find_exercise_by_name(name)
 		exercises.each do |exercise|
@@ -15,5 +15,21 @@ class Workout < ActiveRecord::Base
 		end
 		return nil
 	end
+
+	def self.exercise_exists?(name)
+	  all.each do |workout|
+	    if w = workout.find_exercise_by_name(name)
+	      return true unless w.exercise_sets.empty?
+      end
+    end
+    return false
+  end
+
+  def self.has_bodyweight?
+    all.each do |workout|
+      return true unless workout.bodyweight.blank?
+    end
+    return false
+  end
 
 end
