@@ -9,7 +9,7 @@ class Exercise < ActiveRecord::Base
 	validates :name, :presence => true, :length => { :maximum => 50 }
 
   def average_work_weight
-    sum_weights / exercise_sets.count
+    (sum_weights.to_f / exercise_sets.count).round(2)
   end
 
 	private

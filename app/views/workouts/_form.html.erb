@@ -1,12 +1,7 @@
 <%= form_for @workout do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
-	<%= f.label :date %>
-	<div class="date_selector">
-		<%= date_select :workout, :date,
-						:start_year => Date.today.year - 10,
-						:end_year => Date.today.year + 1,
-						:order => [:month,:day,:year] %>
-	</div>
+  <%= f.label :date %><br />
+  <%= f.text_field :date %><br />
 	<%= f.label :bodyweight %><br />
 	<%= f.text_field :bodyweight %>
 	<ul class="forms">

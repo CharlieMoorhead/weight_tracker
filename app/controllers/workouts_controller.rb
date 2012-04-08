@@ -85,6 +85,6 @@ class WorkoutsController < ApplicationController
     end
 
     def format_for_highcharts(date,stat)
-      ["Date.UTC(#{date.year},#{date.month},#{date.day})",stat]
+      ["Date.UTC(#{date.year},#{date.month-1},#{date.day})",stat]
     end
 end

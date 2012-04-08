@@ -72,14 +72,6 @@ body {
 	font-size: 100%;
 }
 
-.date_selector select {
-	background: transparent;
-	background-color: #015965;
-	color: white;
-	padding: 5px;
-	border: 1px solid #ccc;
-}
-
 ul.forms {
 	list-style-type: none;
 }
