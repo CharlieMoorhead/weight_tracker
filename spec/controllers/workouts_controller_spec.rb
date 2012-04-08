@@ -19,11 +19,9 @@ describe WorkoutsController do
 			response.should have_selector("textarea", :name => "workout[note]")
 		end
 
-		it "should have date selectors" do
+		it "should have a date selector" do
 			get :new
-			response.should have_selector("select", :name => "workout[date(1i)]")
-			response.should have_selector("select", :name => "workout[date(2i)]")
-			response.should have_selector("select", :name => "workout[date(3i)]")
+			response.should have_selector("input", :name => "workout[date]")
 		end
 
 		it "should have an add exercise link" do
@@ -164,12 +162,12 @@ describe WorkoutsController do
 	describe "GET 'graph'" do
 
     it "should redirect when a stat isn't provided" do
-	    get :graph, :workouts => "workouts"
+	    get :graph
 	    response.should redirect_to(workouts_url)
     end
 
     it "should redirect when a stat doesn't exist" do
-      get :graph, :workouts => "workouts", :stat => "Empty"
+      get :graph, :stat => "Empty"
       response.should redirect_to(workouts_url)
     end
 
@@ -178,7 +176,7 @@ describe WorkoutsController do
       exercise = workout.exercises.create!(:name => "Squat")
       exercise.exercise_sets.create!(:weight => 5, :reps => 5)
 
-      get :graph, :workouts => "workouts", :stat => "Squat"
+      get :graph, :stat => "Squat"
       response.should be_success
     end
   end
