@@ -30,7 +30,7 @@ class WorkoutsController < ApplicationController
 
   def index
     @title = "Workouts"
-    @workouts = Workout.all.sort {|a,b| a.date <=> b.date}
+    @workouts = Workout.all.sort {|a,b| b.date <=> a.date}
     @exercises = find_all_exercises(@workouts)
   end
 
@@ -41,11 +41,11 @@ class WorkoutsController < ApplicationController
 
 
   def graph
-    unless Workout.exercise_exists?(params[:stat]) || (params[:stat] == "bodyweight" && Workout.has_bodyweight?)
-      redirect_to workouts_url
-    else
+    if (params[:stat] == "bodyweight" && Workout.has_bodyweight?) || Workout.exercise_exists?(params[:stat])
       @graph_title = params[:stat]
       @stats = params[:stat] == "bodyweight" ? make_bodyweight_stats : make_lift_stats(params[:stat])
+    else
+      redirect_to workouts_url
     end
   end
 

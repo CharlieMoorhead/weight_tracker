@@ -1,6 +1,7 @@
 <h1>All Workouts</h1>
 
 <% unless @workouts.empty? %>
+  <p><%= link_to "Add workout", new_workout_url %></p>
 	<div class="workouts">
 	<table>
 		<tr>
