@@ -2,7 +2,12 @@
 	WeightTracker
 	<nav>
 		<ul>
-			<li><%= link_to "Workouts", workouts_url %></li>
+			<li><%= link_to "Workouts", workouts_path %></li>
+      <% if signed_in? %>
+        <li><%= link_to "Signout", signout_path %></li>
+      <% else %>
+        <li><%= link_to "Signin", signin_path %></li>
+      <% end %>
 		</ul>
 	</nav>
 </header>

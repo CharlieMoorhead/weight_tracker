@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120404213921) do
+ActiveRecord::Schema.define(:version => 20120416042725) do
 
   create_table "exercise_sets", :force => true do |t|
     t.datetime "created_at"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(:version => 20120404213921) do
   end
 
   add_index "exercises", ["name"], :name => "index_exercises_on_name"
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "encrypted_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "workouts", :force => true do |t|
     t.date     "date"

@@ -1,0 +1,13 @@
+<%= form_for @user do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+  <%= f.label :username %><br />
+  <%= f.text_field :username %><br />
+	<%= f.label :password %><br />
+  <%= f.password_field :password %><br />
+	<%= f.label :password_confirmation, "Confirm password" %><br />
+	<%= f.password_field :password_confirmation %>
+	<p>
+		<%= f.submit "Submit", :class => "submit" %>
+		<%= link_to "cancel", workouts_url %>
+	</p>
+<% end %>
