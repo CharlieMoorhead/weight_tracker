@@ -1,20 +1,22 @@
 <h1>All Workouts</h1>
 
 <% unless @workouts.empty? %>
-  <p><%= link_to "Add workout", new_workout_url %></p>
+  <p><%= link_to "Add workout", new_user_workout_url %></p>
 	<div class="workouts">
 	<table>
 		<tr>
 			<th></th>
 			<% @exercises.each do |exercise| %>
-        <th><%= link_to "#{exercise}", "/workouts/graph?stat=#{exercise}" %></th>
+        <th><%= link_to "#{exercise}", graph_user_workouts_path(:stat => exercise) %></th>
 			<% end %>
-      <th><%= link_to "Bodyweight", "/workouts/graph?stat=bodyweight" %></th>
+      <% if @user.has_bodyweight? %>
+        <th><%= link_to "Bodyweight", graph_user_workouts_path(:stat => "bodyweight") %></th>
+      <% end %>
 			<th>Notes</th>
 		</tr>
 		<% @workouts.each do |workout| %>
 			<tr class="<%= cycle("even", "odd") %>">
-				<td><%= link_to workout.date, edit_workout_url(workout) %></td>
+				<td><%= link_to workout.date, edit_user_workout_url(workout.user, workout) %></td>
 				<% @exercises.each do |exercise| %>
 					<td>
 						<% if e = workout.find_exercise_by_name(exercise) %>
@@ -30,7 +32,9 @@
 						<% end %>
 					</td>
 				<% end %>
-				<td><%= workout.bodyweight %></td>
+        <% if @user.has_bodyweight? %>
+          <td><%= workout.bodyweight %></td>
+        <% end %>
 				<td><%= workout.note %></td>
 			</tr>
 		<% end %>
@@ -40,4 +44,4 @@
 	No workouts. Get lifting, brah
 <% end %>
 
-<p><%= link_to "Add workout", new_workout_url %></p>
+<p><%= link_to "Add workout", new_user_workout_url %></p>

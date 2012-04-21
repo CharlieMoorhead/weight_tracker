@@ -10,6 +10,11 @@ describe User do
     User.create!(@attr)
   end
 
+  it "should have a workouts attribute" do
+    user = User.new(@attr)
+    user.should respond_to(:workouts)
+  end
+
   describe "validations" do
 
     it "should require a username" do

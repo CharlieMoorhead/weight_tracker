@@ -2,13 +2,14 @@ namespace :db do
 	desc "Fill database with sample data"
 	task :populate => :environment do
 		Rake::Task['db:reset'].invoke
-		make_workouts
+		user = User.create!(:username => "admin", :password => "foobar")
+		make_workouts(user)
 	end
 end
 
-def make_workouts
+def make_workouts(user)
 	20.times do |n|
-		workout = Workout.create!(:bodyweight => 140 + n,
+		workout = user.workouts.create!(:bodyweight => 140 + n,
 								  :date => Date.today + n)
 		make_sets(workout, "squat", 200 + 5*n)
 		make_sets(workout, "bench", 100 + 5*n)

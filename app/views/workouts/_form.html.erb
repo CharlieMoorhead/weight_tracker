@@ -1,4 +1,4 @@
-<%= form_for @workout do |f| %>
+<%= form_for ([@user, @workout]) do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
   <%= f.label :date %><br />
   <%= f.text_field :date %><br />
@@ -16,6 +16,6 @@
 	</p>
 	<p>
 		<%= f.submit "Submit", :class => "submit" %>
-		<%= link_to "cancel", workouts_url %>
+		<%= link_to "cancel", user_workouts_path %>
 	</p>
 <% end %>

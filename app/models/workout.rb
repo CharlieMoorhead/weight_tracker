@@ -1,6 +1,7 @@
 class Workout < ActiveRecord::Base
 	attr_accessible :date, :bodyweight, :note, :exercises_attributes
 
+	belongs_to :user
 	has_many :exercises, :dependent => :destroy
 	accepts_nested_attributes_for :exercises, :allow_destroy => true
 
@@ -15,21 +16,5 @@ class Workout < ActiveRecord::Base
 		end
 		return nil
 	end
-
-	def self.exercise_exists?(name)
-	  all.each do |workout|
-	    if w = workout.find_exercise_by_name(name)
-	      return true unless w.exercise_sets.empty?
-      end
-    end
-    return false
-  end
-
-  def self.has_bodyweight?
-    all.each do |workout|
-      return true unless workout.bodyweight.blank?
-    end
-    return false
-  end
 
 end

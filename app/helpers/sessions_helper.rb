@@ -39,6 +39,10 @@ module SessionsHelper
 		clear_return_to
 	end
 
+  def already_signed_in
+    redirect_to user_workouts_path(current_user) if signed_in?
+  end
+
 	private
 
 		def user_from_remember_token

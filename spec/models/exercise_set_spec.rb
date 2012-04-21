@@ -11,6 +11,22 @@ describe ExerciseSet do
 		@exercise.exercise_sets.create!(@attr)
 	end
 
+	describe "relationships" do
+
+	  before(:each) do
+	    @set = @exercise.exercise_sets.new(@attr)
+    end
+
+    it "should have an exercise attribute" do
+      @set.should respond_to(:exercise)
+    end
+
+    it "should have the right exercise associated" do
+      @set.exercise_id.should == @exercise.id
+      @set.exercise.should == @exercise
+    end
+  end
+
 	describe "validations" do
 
 		it "should require a reps attribute" do
@@ -36,12 +52,6 @@ describe ExerciseSet do
 		it "should have a default 'false' value for failure" do
 			set = @exercise.exercise_sets.new(@attr)
 			set.failure.should == false
-		end
-
-		it "should have the right exercise associated" do
-			set = @exercise.exercise_sets.new(@attr)
-			set.exercise_id.should == @exercise.id
-			set.exercise.should == @exercise
 		end
 	end
 end

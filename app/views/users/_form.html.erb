@@ -6,8 +6,5 @@
   <%= f.password_field :password %><br />
 	<%= f.label :password_confirmation, "Confirm password" %><br />
 	<%= f.password_field :password_confirmation %>
-	<p>
-		<%= f.submit "Submit", :class => "submit" %>
-		<%= link_to "cancel", workouts_url %>
-	</p>
+	<p><%= f.submit "Submit", :class => "submit" %></p>
 <% end %>

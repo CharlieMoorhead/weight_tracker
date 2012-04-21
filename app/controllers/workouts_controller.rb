@@ -1,28 +1,34 @@
 class WorkoutsController < ApplicationController
+  before_filter :authenticate
+  before_filter :correct_user
 
   def new
     @title = "New Workout"
-    @workout = Workout.new
+    @user = User.find(params[:user_id])
+    @workout = @user.workouts.new
   end
 
   def edit
     @title = "Edit Workout"
     @workout = Workout.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   def create
-    @workout = Workout.new(params[:workout])
+    @user = User.find(params[:user_id])
+    @workout = @user.workouts.new(params[:workout])
     if @workout.save
-      redirect_to workouts_url
+      redirect_to user_workouts_url
     else
       render :new
     end
   end
 
   def update
+    @user = User.find(params[:user_id])
     @workout = Workout.find(params[:id])
     if @workout.update_attributes(params[:workout])
-      redirect_to workouts_url
+      redirect_to user_workouts_url
     else
       render :edit
     end
@@ -30,22 +36,26 @@ class WorkoutsController < ApplicationController
 
   def index
     @title = "Workouts"
-    @workouts = Workout.all.sort {|a,b| b.date <=> a.date}
+    @user = User.find(params[:user_id])
+    @workouts = @user.workouts.all.sort {|a,b| b.date <=> a.date}
     @exercises = find_all_exercises(@workouts)
   end
 
   def destroy
     Workout.find(params[:id]).destroy
-    redirect_to workouts_url
+    redirect_to user_workouts_url
   end
 
 
   def graph
-    if (params[:stat] == "bodyweight" && Workout.has_bodyweight?) || Workout.exercise_exists?(params[:stat])
+    @user = User.find(params[:user_id])
+    @workouts = @user.workouts.all
+    if ((params[:stat] == "bodyweight" && @user.has_bodyweight?) ||
+        @user.has_exercise?(params[:stat]))
       @graph_title = params[:stat]
-      @stats = params[:stat] == "bodyweight" ? make_bodyweight_stats : make_lift_stats(params[:stat])
+      @stats = params[:stat] == "bodyweight" ? make_bodyweight_stats(@workouts) : make_lift_stats(@workouts, params[:stat])
     else
-      redirect_to workouts_url
+      redirect_to user_workouts_url
     end
   end
 
@@ -63,18 +73,16 @@ class WorkoutsController < ApplicationController
       return exercises
     end
 
-    def make_bodyweight_stats
+    def make_bodyweight_stats(workouts)
       stats = []
-      workouts = Workout.all.sort {|a,b| a.date <=> b.date}
       workouts.each do |workout|
         stats.push(format_for_highcharts(workout.date,workout.bodyweight.to_f)) if workout.bodyweight
       end
       return stats
     end
     
-    def make_lift_stats(lift)
+    def make_lift_stats(workouts, lift)
       stats = []
-      workouts = Workout.all.sort {|a,b| a.date <=> b.date}
       workouts.each do |workout|
         if workout.find_exercise_by_name(lift)
           stats.push(format_for_highcharts(workout.date, 
@@ -86,5 +94,10 @@ class WorkoutsController < ApplicationController
 
     def format_for_highcharts(date,stat)
       ["Date.UTC(#{date.year},#{date.month-1},#{date.day})",stat]
+    end
+
+    def correct_user
+      user = User.find(params[:user_id])
+      redirect_to root_path unless current_user?(user)
     end
 end

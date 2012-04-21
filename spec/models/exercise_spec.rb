@@ -11,14 +11,28 @@ describe Exercise do
 		@workout.exercises.create!(@attr)
 	end
 
-	describe "validations" do
-		
+	describe "relationships" do
+
+	  before(:each) do
+	    @exercise = @workout.exercises.new(@attr)
+    end
+
+    it "should have a workout attribute" do
+      @exercise.should respond_to(:workout)
+    end
+
 		it "should have the right workout associated" do
-			exercise = @workout.exercises.new
-			exercise.workout_id.should == @workout.id
-			exercise.workout.should == @workout
+			@exercise.workout_id.should == @workout.id
+			@exercise.workout.should == @workout
 		end
 
+    it "should have an exercise_sets attribute" do
+      @exercise.should respond_to(:exercise_sets)
+    end
+  end
+
+	describe "validations" do
+		
 		it "should require a name" do
 			exercise = @workout.exercises.new(@attr.merge(:name => ""))
 			exercise.should_not be_valid

@@ -3,7 +3,11 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :username, :password, :password_confirmation
 
-  validates :username, :presence => true, :length => { :maximum => 50 }
+  has_many :workouts, :dependent => :destroy
+
+  validates :username, :presence => true,
+            :length => { :maximum => 50 },
+            :uniqueness => { :case_sensitive => false }
   validates :password, :presence => true, :length => { :within => 6..40 }, :confirmation => true
 
   before_save :encrypt_password
@@ -21,6 +25,22 @@ class User < ActiveRecord::Base
 	def self.authenticate_with_salt(id, cookie_salt)
 		user = find_by_id(id)
 		(user && user.salt == cookie_salt) ? user : nil
+  end
+
+  def has_bodyweight?
+    workouts.each do |workout|
+      return true unless workout.bodyweight.blank?
+    end
+    return false
+  end
+
+  def has_exercise?(name)
+    workouts.each do |workout|
+      if w = workout.find_exercise_by_name(name)
+        return true unless w.exercise_sets.empty?
+      end
+    end
+    return false
   end
 
   private

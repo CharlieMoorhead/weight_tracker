@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_filter :already_signed_in, :except => [:destroy]
 
   def new
     @title = "Sign in"
@@ -12,7 +13,7 @@ class SessionsController < ApplicationController
       render 'new'
 	  else
       sign_in user
-      redirect_back_or root_url
+      redirect_back_or user_workouts_url(user)
 	  end
   end
 

@@ -13,10 +13,19 @@ Factory.define :workout do |workout|
 	workout.note					"First workout"
 end
 
+Factory.define :user do |user|
+  user.username "example"
+  user.password "foobar"
+end
+
 Factory.sequence :date do |n|
 	Date.today + n
 end
 
 Factory.sequence :bodyweight do |n|
 	100 + n
+end
+
+Factory.sequence :username do |n|
+  "Example #{n}"
 end
