@@ -49,7 +49,7 @@ class WorkoutsController < ApplicationController
 
   def graph
     @user = User.find(params[:user_id])
-    @workouts = @user.workouts.all
+    @workouts = @user.workouts.all.sort {|a,b| a.date <=> b.date}
     if ((params[:stat] == "bodyweight" && @user.has_bodyweight?) ||
         @user.has_exercise?(params[:stat]))
       @graph_title = params[:stat]
