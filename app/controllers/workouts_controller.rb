@@ -84,7 +84,7 @@ class WorkoutsController < ApplicationController
     def make_lift_stats(workouts, lift)
       stats = []
       workouts.each do |workout|
-        if workout.find_exercise_by_name(lift)
+        if workout.find_exercise_by_name(lift) and workout.find_exercise_by_name(lift).average_work_weight
           stats.push(format_for_highcharts(workout.date, 
                                            workout.find_exercise_by_name(lift).average_work_weight))
         end

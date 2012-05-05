@@ -9,7 +9,11 @@ class Exercise < ActiveRecord::Base
 	validates :name, :presence => true, :length => { :maximum => 50 }
 
   def average_work_weight
-    (sum_weights.to_f / exercise_sets.count).round(2)
+    unless successful_sets == 0
+      return (sum_weights.to_f / successful_sets).round(2)
+    else
+      return nil
+    end
   end
 
 	private
@@ -18,10 +22,18 @@ class Exercise < ActiveRecord::Base
 			self.name = name.downcase.capitalize
 		end
 
+		def successful_sets
+		  count = 0
+		  exercise_sets.each do |set|
+		    count += 1 unless set.failure
+      end
+      return count
+    end
+
 		def sum_weights
 		  sum = 0
 		  exercise_sets.each do |set|
-		    sum += set.weight
+		    sum += set.weight unless set.failure
       end
       return sum
     end
