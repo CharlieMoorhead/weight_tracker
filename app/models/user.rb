@@ -1,13 +1,14 @@
 require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :username, :password, :password_confirmation
+  attr_accessible :username, :email, :password, :password_confirmation
 
   has_many :workouts, :dependent => :destroy
 
   validates :username, :presence => true,
             :length => { :maximum => 50 },
             :uniqueness => { :case_sensitive => false }
+  validates :email, :presence => true
   validates :password, :presence => true, :length => { :within => 6..40 }, :confirmation => true
 
   before_save :encrypt_password
@@ -43,6 +44,13 @@ class User < ActiveRecord::Base
     return false
   end
 
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!(:validate => false)
+    UserMailer.password_reset(self).deliver
+  end
+
   private
 
     def encrypt_password
@@ -60,5 +68,11 @@ class User < ActiveRecord::Base
 
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
+    end
+
+    def generate_token(column)
+      begin
+        self[column] = SecureRandom.urlsafe_base64
+      end while User.exists?(column => self[column])
     end
 end

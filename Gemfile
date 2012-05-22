@@ -5,6 +5,7 @@ gem 'sqlite3', '1.3.3'
 
 group :development do
 	gem 'rspec-rails', '2.6.1'
+	gem 'mail', '2.2.19'
 end
 
 group :test do

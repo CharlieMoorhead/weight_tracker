@@ -17,7 +17,7 @@ describe UsersController do
 
     it "should redirect from POST 'create'" do
       lambda do
-        attr = { :username => "example", :password => "foobar" }
+        attr = { :username => "example", :email => "hi@example.com", :password => "foobar" }
         post :create, :user => attr
         response.should be_redirect
       end.should_not change(User,:count)
@@ -52,7 +52,7 @@ describe UsersController do
     describe "failure" do
 
       before(:each) do
-        @attr = { :username => "", :password => "" }
+        @attr = { :username => "", :email => "", :password => "" }
       end
 
       it "should not create a user" do
@@ -70,7 +70,7 @@ describe UsersController do
     describe "success" do
 
       before(:each) do
-        @attr = {:username => "example", :password => "foobar" }
+        @attr = {:username => "example", :email => "hi@example.com", :password => "foobar" }
       end
 
       it "should create a new user" do

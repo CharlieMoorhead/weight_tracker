@@ -15,6 +15,7 @@ end
 
 Factory.define :user do |user|
   user.username "example"
+  user.email "hi@example.com"
   user.password "foobar"
 end
 
@@ -28,4 +29,8 @@ end
 
 Factory.sequence :username do |n|
   "Example #{n}"
+end
+
+Factory.sequence :email do |n|
+  "Ex-#{n}@example.com"
 end
