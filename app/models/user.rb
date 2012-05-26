@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   validates :username, :presence => true,
             :length => { :maximum => 50 },
             :uniqueness => { :case_sensitive => false }
-  validates :email, :presence => true
+  validates :email, :presence => true,
+            :uniqueness => { :case_senstive => false }
   validates :password, :presence => true, :length => { :within => 6..40 }, :confirmation => true
 
   before_save :encrypt_password
