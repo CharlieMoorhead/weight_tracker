@@ -31,7 +31,7 @@ describe User do
       user.should_not be_valid
     end
 
-    it "should require a password" do
+    it "should require an email" do
       user = User.new(@attr.merge(:email => ""))
       user.should_not be_valid
     end

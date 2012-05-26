@@ -1,5 +1,6 @@
 class PasswordResetsController < ApplicationController
   def new
+    @title = "Password Reset"
   end
 
   def create
@@ -9,6 +10,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
+    @title = "Password Reset"
     @user = User.find_by_password_reset_token!(params[:id])
   end
 
